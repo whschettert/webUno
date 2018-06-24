@@ -9,7 +9,8 @@
 package unoGame;
 
 import java.util.Random;
-import java.util.Stack;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Wagner_Schettert
@@ -17,165 +18,161 @@ import java.util.Stack;
  */
 public class TrunkBuilder {
 
-	public Stack<Card> buildTrunk(int matchId) {
-	int redCount = 75;
-	int yellowCount = 25;
-	int greenCount = 50;
-	int blueCount = 0;
-	int specialCount = 100;
-		
-	Stack<Card> trunk = new Stack<>();
-		
-	trunk.push(new Card(blueCount, EColor.B, ECardType.Z));
-	trunk.push(new Card(greenCount, EColor.G, ECardType.Z));
-	trunk.push(new Card(yellowCount, EColor.Y, ECardType.Z));
-	trunk.push(new Card(redCount, EColor.R, ECardType.Z));
-        blueCount++;
-        greenCount++;
-        yellowCount++;
-        redCount++;
-		
-        for (int i = 0; i < 2; i++) {
-                trunk.push(new Card(blueCount, EColor.B, ECardType.O));
-                trunk.push(new Card(greenCount, EColor.G, ECardType.O));
-                trunk.push(new Card(yellowCount, EColor.Y, ECardType.O));
-                trunk.push(new Card(redCount, EColor.R, ECardType.O));
-        blueCount++;
-        greenCount++;
-        yellowCount++;
-        redCount++;
+    private int DECK_SIZE = 108;
+    
+    public List<Card> buildTrunk(int matchId) {
+        
+        Random random = new Random(matchId);
 
-        trunk.push(new Card(blueCount, EColor.B, ECardType.TW));
-                trunk.push(new Card(greenCount, EColor.G, ECardType.TW));
-                trunk.push(new Card(yellowCount, EColor.Y, ECardType.TW));
-                trunk.push(new Card(redCount, EColor.R, ECardType.TW));
-        blueCount++;
-        greenCount++;
-        yellowCount++;
-        redCount++;
-
-        trunk.push(new Card(blueCount, EColor.B, ECardType.TH));
-                trunk.push(new Card(greenCount, EColor.G, ECardType.TH));
-                trunk.push(new Card(yellowCount, EColor.Y, ECardType.TH));
-                trunk.push(new Card(redCount, EColor.R, ECardType.TH));
-        blueCount++;
-        greenCount++;
-        yellowCount++;
-        redCount++;
-
-        trunk.push(new Card(blueCount, EColor.B, ECardType.FO));
-                trunk.push(new Card(greenCount, EColor.G, ECardType.FO));
-                trunk.push(new Card(yellowCount, EColor.Y, ECardType.FO));
-                trunk.push(new Card(redCount, EColor.R, ECardType.FO));
-        blueCount++;
-        greenCount++;
-        yellowCount++;
-        redCount++;
-
-        trunk.push(new Card(blueCount, EColor.B, ECardType.FI));
-                trunk.push(new Card(greenCount, EColor.G, ECardType.FI));
-                trunk.push(new Card(yellowCount, EColor.Y, ECardType.FI));
-                trunk.push(new Card(redCount, EColor.R, ECardType.FI));
-        blueCount++;
-        greenCount++;
-        yellowCount++;
-        redCount++;
-
-        trunk.push(new Card(blueCount, EColor.B, ECardType.SI));
-                trunk.push(new Card(greenCount, EColor.G, ECardType.SI));
-                trunk.push(new Card(yellowCount, EColor.Y, ECardType.SI));
-                trunk.push(new Card(redCount, EColor.R, ECardType.SI));
-        blueCount++;
-        greenCount++;
-        yellowCount++;
-        redCount++;
-
-        trunk.push(new Card(blueCount, EColor.B, ECardType.SE));
-                trunk.push(new Card(greenCount, EColor.G, ECardType.SE));
-                trunk.push(new Card(yellowCount, EColor.Y, ECardType.SE));
-                trunk.push(new Card(redCount, EColor.R, ECardType.SE));
-        blueCount++;
-        greenCount++;
-        yellowCount++;
-        redCount++;
-
-        trunk.push(new Card(blueCount, EColor.B, ECardType.E));
-                trunk.push(new Card(greenCount, EColor.G, ECardType.E));
-                trunk.push(new Card(yellowCount, EColor.Y, ECardType.E));
-                trunk.push(new Card(redCount, EColor.R, ECardType.E));
-        blueCount++;
-        greenCount++;
-        yellowCount++;
-        redCount++;
-
-        trunk.push(new Card(blueCount, EColor.B, ECardType.N));
-                trunk.push(new Card(greenCount, EColor.G, ECardType.N));
-                trunk.push(new Card(yellowCount, EColor.Y, ECardType.N));
-                trunk.push(new Card(redCount, EColor.R, ECardType.N));
-        blueCount++;
-        greenCount++;
-        yellowCount++;
-        redCount++;
-
-        trunk.push(new Card(blueCount, EColor.B, ECardType.P_TWO));
-                trunk.push(new Card(greenCount, EColor.G, ECardType.P_TWO));
-                trunk.push(new Card(yellowCount, EColor.Y, ECardType.P_TWO));
-                trunk.push(new Card(redCount, EColor.R, ECardType.P_TWO));
-        blueCount++;
-        greenCount++;
-        yellowCount++;
-        redCount++;
-
-        trunk.push(new Card(blueCount, EColor.B, ECardType.SKIP));
-                trunk.push(new Card(greenCount, EColor.G, ECardType.SKIP));
-                trunk.push(new Card(yellowCount, EColor.Y, ECardType.SKIP));
-                trunk.push(new Card(redCount, EColor.R, ECardType.SKIP));
-        blueCount++;
-        greenCount++;
-        yellowCount++;
-        redCount++;
-
-        trunk.push(new Card(blueCount, EColor.B, ECardType.REVERSE));
-                trunk.push(new Card(greenCount, EColor.G, ECardType.REVERSE));
-                trunk.push(new Card(yellowCount, EColor.Y, ECardType.REVERSE));
-                trunk.push(new Card(redCount, EColor.R, ECardType.REVERSE));
-        blueCount++;
-        greenCount++;
-        yellowCount++;
-        redCount++;
+        int[] trunk = new int[DECK_SIZE];
+        for (int i = 0; i < DECK_SIZE; i++) {
+            trunk[i] = i;
         }
 
-        for (int i = 0; i < 4; i++) {
-                trunk.push(new Card(specialCount, EColor.S, ECardType.WILD));
-                specialCount++;                
+        for (int c = 0; c < DECK_SIZE; ++c) {
+            int outra = random.nextInt(DECK_SIZE);
+            int aux = trunk[c];
+            trunk[c] = trunk[outra];
+            trunk[outra] = aux;
+        }
+        for (int c = 0; c < DECK_SIZE * DECK_SIZE; c++) {
+            int c1 = random.nextInt(DECK_SIZE);
+            int c2 = random.nextInt(DECK_SIZE);
+            int aux = trunk[c1];
+            trunk[c1] = trunk[c2];
+            trunk[c2] = aux;
         }
         
-        for (int i = 0; i < 4; i++) {                
-                trunk.push(new Card(specialCount, EColor.S, ECardType.P_FOUR));
-                specialCount++;
+        List<Card> trunkStack = new ArrayList<>();
+        for (int c = 0; c < DECK_SIZE; c++){
+            int cardId = trunk[c];
+            if (cardId >= 0 && cardId <= 24){
+                EColor cardColor = EColor.B;
+                if (cardId == 0)    
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.Z));
+                if (cardId == 1 || cardId == 2)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.O));
+                if (cardId == 3 || cardId == 4)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.TW));
+                if (cardId == 5 || cardId == 6)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.TH));
+                if (cardId == 7 || cardId == 8)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.FO));
+                if (cardId == 9 || cardId == 10)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.FI));
+                if (cardId == 11 || cardId == 12)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.SI));
+                if (cardId == 13 || cardId == 14)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.SE));
+                if (cardId == 15 || cardId == 16)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.E));
+                if (cardId == 17 || cardId == 18)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.N));
+                if (cardId == 19 || cardId == 20)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.SKIP));
+                if (cardId == 21 || cardId == 22)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.REVERSE));
+                if (cardId == 23 || cardId == 24)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.P_TWO));
+            }
+            if (cardId >= 25 && cardId <= 49){
+                EColor cardColor = EColor.Y;
+                if (cardId == 25)    
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.Z));
+                if (cardId == 26 || cardId == 27)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.O));
+                if (cardId == 28 || cardId == 29)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.TW));
+                if (cardId == 30 || cardId == 31)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.TH));
+                if (cardId == 32 || cardId == 33)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.FO));
+                if (cardId == 34 || cardId == 35)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.FI));
+                if (cardId == 36 || cardId == 37)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.SI));
+                if (cardId == 38 || cardId == 39)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.SE));
+                if (cardId == 40 || cardId == 41)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.E));
+                if (cardId == 42 || cardId == 43)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.N));
+                if (cardId == 44 || cardId == 45)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.SKIP));
+                if (cardId == 46 || cardId == 47)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.REVERSE));
+                if (cardId == 48 || cardId == 49)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.P_TWO));
+            }
+            if (cardId >= 50 && cardId <= 74){
+                EColor cardColor = EColor.G;
+                if (cardId == 50)    
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.Z));
+                if (cardId == 51 || cardId == 52)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.O));
+                if (cardId == 53 || cardId == 54)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.TW));
+                if (cardId == 55 || cardId == 56)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.TH));
+                if (cardId == 57 || cardId == 58)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.FO));
+                if (cardId == 59 || cardId == 60)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.FI));
+                if (cardId == 61 || cardId == 62)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.SI));
+                if (cardId == 63 || cardId == 64)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.SE));
+                if (cardId == 65 || cardId == 66)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.E));
+                if (cardId == 67 || cardId == 68)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.N));
+                if (cardId == 69 || cardId == 70)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.SKIP));
+                if (cardId == 71 || cardId == 72)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.REVERSE));
+                if (cardId == 73 || cardId == 73)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.P_TWO));
+            }
+            if (cardId >= 75 && cardId <= 99){
+                EColor cardColor = EColor.R;
+                if (cardId == 75)    
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.Z));
+                if (cardId == 76 || cardId == 77)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.O));
+                if (cardId == 78 || cardId == 79)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.TW));
+                if (cardId == 80 || cardId == 81)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.TH));
+                if (cardId == 82 || cardId == 83)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.FO));
+                if (cardId == 84 || cardId == 85)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.FI));
+                if (cardId == 86 || cardId == 87)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.SI));
+                if (cardId == 88 || cardId == 89)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.SE));
+                if (cardId == 90 || cardId == 91)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.E));
+                if (cardId == 92 || cardId == 93)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.N));
+                if (cardId == 94 || cardId == 95)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.SKIP));
+                if (cardId == 96 || cardId == 97)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.REVERSE));
+                if (cardId == 98 || cardId == 99)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.P_TWO));
+            }
+            if (cardId >= 100){
+                EColor cardColor = EColor.S;
+                if (cardId >= 100 && cardId <= 103)    
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.WILD));
+                if (cardId >= 104 || cardId <= 107)
+                    trunkStack.add(new Card(cardId, cardColor, ECardType.P_FOUR));
+            }
         }
-
-        return shuffle(matchId, trunk);
-	}
-	
-	public Stack<Card> shuffle(int matchId, Stack<Card> trunk){
-		Random r = new Random(matchId);
-		int size = trunk.size();
-		for (int i = 0; i < size; i++) {
-            int aux = r.nextInt(size);
-            Card card = trunk.get(i);
-            trunk.add(i,trunk.get(aux));
-            trunk.add(aux,card);
-        }
-        for (int i = 0; i < size*size; i++) {
-            int r1 = r.nextInt(size);
-            int r2 = r.nextInt(size);
-            Card card = trunk.get(i);
-            trunk.add(r1, trunk.get(r2));
-            trunk.add(r2, card);
-        }
-        return trunk;
-	}
+        
+        return trunkStack;
+    }
 
 }
 

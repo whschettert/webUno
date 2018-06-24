@@ -17,8 +17,8 @@ public class Match {
         private Card curCard;	
 	private Player curPlayer; //player
 	private Player opPlayer; //opponent	
-	private Stack<Card> trunk = new Stack<>();
-	private Stack<Card> discardPile = new Stack<>();
+	private List<Card> trunk = new ArrayList<>();
+	private List<Card> discardPile = new ArrayList<>();
 	private List<Player> players = new ArrayList<>(); 
 	private boolean isTrunkEmpty = false;
 	private boolean isMatchOver = false;
@@ -47,25 +47,26 @@ public class Match {
 		
 		this.trunk = new TrunkBuilder().buildTrunk(matchId);
 		dealInitialCards();
-		putCardInDiscardPile(this.trunk.pop());
+		putCardInDiscardPile(popCard());
 		isMatchStarted = true;                
 	}
+        
+        private Card popCard(){
+            return this.trunk.remove(this.trunk.size() - 1);
+        }
 	
 	/**
 	 * Deal the initial card to both players
 	 */
 	private void dealInitialCards() {
-		for (int i = 0; i < 13; i++) {
-			// if even, opponent gets card, otherwise player gets one
-			if (i%2 == 0)
-				players.get(1).addCards(null, trunk.pop());
-			else
-				players.get(0).addCards(null, trunk.pop());
+		for (int i = 0; i < 7; i++) {
+                    players.get(1).addCards(null, popCard());
+                    players.get(0).addCards(null, popCard());
 		}		
 	}
         
         public int giveCardToPlayer(int pId){
-            players.get(pId).addCards(null, trunk.pop());
+            players.get(pId).addCards(null, popCard());
             return 1;
         }
 	
@@ -74,7 +75,7 @@ public class Match {
 	 */
 	public void putCardInDiscardPile(Card card) {
 		curCard = card;
-		discardPile.push(card);		
+		discardPile.add(card);		
 	}
 	
 	/**
