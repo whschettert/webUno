@@ -144,7 +144,7 @@ public class Match {
         
         public Player getPlayer(int pId){
             for (Player p : players) {
-                if (p.getpId()==pId)
+                if (p.getpId() == pId)
                     return p;
             }
             return null;

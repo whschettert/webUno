@@ -36,7 +36,7 @@ public class MatchesControl {
         
         public static Match findMatch(int pId){
             for(Match match : matches){
-                if(match.getPlayer(pId).getpId() == pId)
+                if(match.getPlayer(pId) != null && match.getPlayer(pId).getpId() == pId)
                     return match;
             }
             return null;
