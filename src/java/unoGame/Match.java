@@ -49,6 +49,9 @@ public class Match {
                 this.trunkSize = TrunkBuilder.DECK_SIZE;
 		dealInitialCards();
                 Card topCard = popCard();
+                while(topCard.getColor() == EColor.S){
+                    topCard = popCard();
+                }
                 if (topCard.getType() == ECardType.SKIP || topCard.getType() == ECardType.REVERSE){
                     currentCounter = 1;
                 } else if (topCard.getType() == ECardType.P_TWO){
