@@ -14,10 +14,11 @@ import java.util.Stack;
  * @author Wagner_Schettert
  */
 public class Match {
+        public int preMatchcontroller = 0;
         private Card curCard;	
-	private Player curPlayer; //player
-	private Player opPlayer; //opponent	
-	private List<Card> trunk = new ArrayList<>();
+	private int currentCounter;
+	private Card[] trunk;
+        private int trunkSize;
 	private List<Card> discardPile = new ArrayList<>();
 	private List<Player> players = new ArrayList<>(); 
 	private boolean isTrunkEmpty = false;
@@ -44,15 +45,31 @@ public class Match {
 		matchId = 0;
 		for(Player p : players)
 			matchId += p.getpId();
-		
 		this.trunk = new TrunkBuilder().buildTrunk(matchId);
+                this.trunkSize = TrunkBuilder.DECK_SIZE;
 		dealInitialCards();
-		putCardInDiscardPile(popCard());
+                Card topCard = popCard();
+                if (topCard.getType() == ECardType.SKIP || topCard.getType() == ECardType.REVERSE){
+                    currentCounter = 1;
+                } else if (topCard.getType() == ECardType.P_TWO){
+                    currentCounter = 1;
+                    players.get(0).addCards(null, popCard());
+                    players.get(0).addCards(null, popCard());
+                } else {
+                    currentCounter = 0;
+                }
+		putCardInDiscardPile(topCard);
 		isMatchStarted = true;                
 	}
         
         private Card popCard(){
-            return this.trunk.remove(this.trunk.size() - 1);
+            int pos = this.trunkSize - 1;
+            this.trunkSize--;
+            return this.trunk[pos];
+        }
+        
+        private Player getCurrentPlayer(){
+            return players.get(Math.abs(currentCounter) % 2);
         }
 	
 	/**
@@ -60,8 +77,8 @@ public class Match {
 	 */
 	private void dealInitialCards() {
 		for (int i = 0; i < 7; i++) {
-                    players.get(1).addCards(null, popCard());
                     players.get(0).addCards(null, popCard());
+                    players.get(1).addCards(null, popCard());
 		}		
 	}
         
@@ -111,7 +128,7 @@ public class Match {
 	}
         
         public int getTrunkSize(){
-            return trunk.size();
+            return this.trunkSize;
         }
 
 	/**
@@ -140,7 +157,7 @@ public class Match {
 	 * @return the curPlayer
 	 */
 	public Player getCurPlayer() {
-		return curPlayer;
+		return getCurrentPlayer();
 	}
         
         public Player getPlayer(int pId){
@@ -159,8 +176,12 @@ public class Match {
 	 * @category getters
 	 * @return the opPlayer
 	 */
-	public Player getOpPlayer() {
-		return opPlayer;
+	public Player getOpPlayer(int pId) {
+            for (Player p : players) {
+                if (p.getpId() != pId)
+                    return p;
+            }
+            return null;
 	}
 
 	/**

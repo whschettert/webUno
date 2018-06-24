@@ -99,8 +99,13 @@ public class Player {
 	 */
 	public String showCardsInHand() {        
         String handString = ""; 
-        for (Card card: cardsInHand)             
-            handString += card.toString()+"|";
+        for (Card card: cardsInHand) {
+            if (handString == ""){
+                handString = card.toString();
+            } else {
+                handString += "|" + card.toString();
+            }
+        }            
         
         return handString; 
 	}

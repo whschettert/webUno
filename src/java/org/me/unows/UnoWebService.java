@@ -21,7 +21,7 @@ import unoGame.PlayerCollections;
  */
 @WebService(serviceName = "UnoWebService")
 public class UnoWebService{
-
+    
     private boolean preRegistered;    
     private int MAX_PLAYERS; 
     private ArrayList<Player> preRegistro;
@@ -48,6 +48,7 @@ public class UnoWebService{
         preRegistro.add(p2);
         
         preRegistered = true;
+        matches.preMatch(p1,p2);
         return 0;
     }
     
@@ -142,7 +143,7 @@ public class UnoWebService{
     public String obtemOponente(@WebParam(name = "idJogador") Integer idJogador) {
         try{ 
             Match m = matches.findMatch(idJogador);
-            return m.getOpPlayer().getpName();
+            return m.getOpPlayer(idJogador).getpName();
         }
         catch(Exception e){
             return "";

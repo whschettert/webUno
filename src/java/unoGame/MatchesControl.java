@@ -13,12 +13,34 @@ import java.util.List;
  * @author Wagner_Schettert
  */
 public class MatchesControl {
-    private static final int P_LIMIT = 2;
+    private  final int P_LIMIT = 2;
+        
+	private  List<Match> matches = new ArrayList<>();
+        private  List<Match> preMatch = new ArrayList<>();
 	
-	private static List<Match> matches = new ArrayList<>();
-	
-	public static void addPlayer(Player p) {
+        public  void preMatch(Player p1, Player p2) {
+            Match match = new Match();
+            match.addPlayer(p1);
+            match.addPlayer(p2);
+            preMatch.add(match);
+        }
+	public  void addPlayer(Player p) {
                 
+            boolean isPreMatched = false;
+            for (Match m : preMatch){
+                if (m.getPlayer(p.getpId()) != null){
+                    m.preMatchcontroller++;
+                    if (m.preMatchcontroller == 2){
+                        matches.add(m);
+                        m.setIsMatchStarted();
+                        return;
+                    }
+                    isPreMatched = true;
+                }
+            }
+            if (isPreMatched)
+                return;
+            
             if (matches.size() > 0){
 		for (Match match : matches) {
 			if(match.getPNumbers() < P_LIMIT) {
@@ -34,7 +56,7 @@ public class MatchesControl {
             matches.add(match);            
 	}
         
-        public static Match findMatch(int pId){
+        public  Match findMatch(int pId){
             for(Match match : matches){
                 if(match.getPlayer(pId) != null && match.getPlayer(pId).getpId() == pId)
                     return match;
