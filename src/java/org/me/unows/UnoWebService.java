@@ -23,11 +23,19 @@ import unoGame.PlayerCollections;
 public class UnoWebService{
 
     private boolean preRegistered;    
-    private int MAX_PLAYERS = 1000; //2 each match = 500 matches
-    private ArrayList<Player> preRegistro = new ArrayList<Player>();
+    private int MAX_PLAYERS; 
+    private ArrayList<Player> preRegistro;
     
-    private MatchesControl matches = new MatchesControl();    
-    private PlayerCollections fullListOfPlayers = new PlayerCollections();
+    private MatchesControl matches;
+    private PlayerCollections fullListOfPlayers;
+    
+    public UnoWebService(){
+        this.preRegistered = false;
+        this.MAX_PLAYERS = 1000; //2 each match = 500 matches
+        this.matches = new MatchesControl();
+        this.fullListOfPlayers = new PlayerCollections();
+        this.preRegistro = new ArrayList<Player>();
+    }
     
     @WebMethod(operationName = "preRegistro")
     public int preRegistro(@WebParam(name = "pNameOne") String pNameOne, @WebParam(name = "pIdOne") int pIdOne, @WebParam(name = "pNameTwo") String pNameTwo, @WebParam(name = "pIdTwo") int pIdTwo) {

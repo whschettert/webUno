@@ -14,15 +14,15 @@ import java.util.List;
  */
 public class PlayerCollections {
 
-        private static int lastId;
-	private static List<Player> fullListOfPlayers;
+        private int lastId;
+	private List<Player> fullListOfPlayers;
 
-	public static void PlayerCollections(){
+	public PlayerCollections(){
 		fullListOfPlayers = new ArrayList<>();
                 lastId=0;
 	}
 
-	public static int registerPlayer(Player p) {
+	public int registerPlayer(Player p) {
 		if (fullListOfPlayers.contains(p))
 			return -1;
 		fullListOfPlayers.add(p);
@@ -30,25 +30,25 @@ public class PlayerCollections {
 		return p.getpId();
 	}
 
-	public static Player findPlayer(int id) {
+	public Player findPlayer(int id) {
 		for (Player p : fullListOfPlayers)
 			if (p.getpId() == id)
 				return p;
 		return null;
 	}
         
-        public static Player findPlayer(String pName){
+        public Player findPlayer(String pName){
             for (Player p: fullListOfPlayers)
                    if(p.getpName().equals(pName))
                        return p;
             return null;
         }
         
-        public static int getSize(){
+        public int getSize(){
             return fullListOfPlayers.size();
         }
         
-        public static void removePlayer(String pName){
+        public void removePlayer(String pName){
             for (Player p: fullListOfPlayers)
                    if(p.getpName().equals(pName))
                        fullListOfPlayers.remove(p);
