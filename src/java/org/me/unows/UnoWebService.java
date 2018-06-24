@@ -40,7 +40,7 @@ public class UnoWebService{
     @WebMethod(operationName = "preRegistro")
     public int preRegistro(@WebParam(name = "pNameOne") String pNameOne, @WebParam(name = "pIdOne") int pIdOne, @WebParam(name = "pNameTwo") String pNameTwo, @WebParam(name = "pIdTwo") int pIdTwo) {
         Player p1 = new Player(pNameOne,pIdOne);
-        Player p2 = new Player(pNameOne,pIdTwo);
+        Player p2 = new Player(pNameTwo,pIdTwo);
         
         fullListOfPlayers.registerPlayer(p1);
         fullListOfPlayers.registerPlayer(p2);
@@ -58,11 +58,12 @@ public class UnoWebService{
     public int registraJogador(@WebParam(name = "name") String name) {
         int idTobeCreated;        
         if (preRegistered){                        
-            matches.addPlayer(fullListOfPlayers.findPlayer(name));
-            preRegistro.remove(fullListOfPlayers.findPlayer(name));
+            Player p = fullListOfPlayers.findPlayer(name);
+            matches.addPlayer(p);
+            preRegistro.remove(p);
             if(preRegistro.isEmpty())
                 preRegistered = false;
-            return fullListOfPlayers.findPlayer(name).getpId();
+            return p.getpId();
         }
         if (fullListOfPlayers.findPlayer(name).getpName() == name)
             return -1; //jogador ja existe
