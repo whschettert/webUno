@@ -16,7 +16,6 @@ public class Player {
     private int pId;
     private String pName;
     private List<Card> cardsInHand = new ArrayList<>();
-    private int points = 0;
     private boolean myTurn;
     private Player opp;
 
@@ -69,14 +68,10 @@ public class Player {
 	 * @return the points
 	 */
 	public int getPoints() {
-		return points;
-	}
-
-	/**
-	 * @param points the points to add
-	 */
-	public void addPoints(int points) {
-		this.points += points;
+		int points = 0;
+                for (Card c : cardsInHand)
+                    points += c.getType().getPoints();
+                return points;
 	}
         
         public int getNumOfCards(){

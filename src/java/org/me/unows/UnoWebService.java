@@ -328,8 +328,8 @@ public class UnoWebService{
      */
     @WebMethod(operationName = "obtemPontos")
     public int obtemPontos(@WebParam(name = "idJogador") Integer idJogador) {
-        //TODO write your implementation code here:
-        return 0;
+        Match m = matches.findMatch(idJogador);
+        return m.getPlayer(idJogador).getPoints();
     }
     
     /**
@@ -337,7 +337,7 @@ public class UnoWebService{
      */
     @WebMethod(operationName = "obtemPontosOponente")
     public int obtemPontosOponente(@WebParam(name = "idJogador") Integer idJogador) {
-        //TODO write your implementation code here:
-        return 0;
+        Match m = matches.findMatch(idJogador);
+        return m.getOpPlayer(idJogador).getPoints();
     }    
 }
